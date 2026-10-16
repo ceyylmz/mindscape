@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Mindscape | Zeka & Odak Egzersizleri</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ÜST BİLGİ VE NAVİGASYON -->
+  <header class="app-header">
+    <button id="home-btn" class="icon-btn hidden" onclick="showMainMenu()">🏠 Ana Menü</button>
+    <div class="header-title">
+      <h1 id="app-title">Mindscape</h1>
+    </div>
+    <button id="sound-btn" class="icon-btn" onclick="toggleSound()">🔊</button>
+  </header>
+
+  <!-- ANA MENÜ -->
+  <main id="main-menu" class="screen active-screen">
+    <div class="stats-overview">
+      <div class="stat-card">
+        <span class="stat-value" id="total-score-display">0</span>
+        <span class="stat-label">Toplam Puan</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="day-streak-display">1</span>
+        <span class="stat-label">Günlük Seri 🔥</span>
+      </div>
+    </div>
+
+    <h2 class="section-title">Egzersiz Seçin</h2>
+
+    <div class="game-grid">
+      <!-- Skyrise Kartı -->
+      <div class="game-card" onclick="startSelectedGame('skyrise')">
+        <div class="card-badge">Hafıza & Uzam</div>
+        <div class="card-icon">🏗️</div>
+        <h3>Skyrise</h3>
+        <p>Sayıları aklında tut, küçükten büyüğe sırala ve kuleyi yükselt!</p>
+        <div class="card-footer">
+          <span>Rekor: <strong id="best-skyrise">0</strong></span>
+          <button class="play-btn">Oyna</button>
+        </div>
+      </div>
+
+      <!-- Speed Match Kartı -->
+      <div class="game-card" onclick="startSelectedGame('speed')">
+        <div class="card-badge">Dikkat & Odak</div>
+        <div class="card-icon">⚡</div>
+        <h3>Hızlı Eşleştirme</h3>
+        <p>Gelen kart bir öncekiyle eşleşiyor mu? Hızlı karar ver!</p>
+        <div class="card-footer">
+          <span>Rekor: <strong id="best-speed">0</strong></span>
+          <button class="play-btn">Oyna</button>
+        </div>
+      </div>
+
+      <!-- Path Finder Kartı -->
+      <div class="game-card" onclick="startSelectedGame('path')">
+        <div class="card-badge">Mantık & Planlama</div>
+        <div class="card-icon">🧩</div>
+        <h3>Şehir Yolu</h3>
+        <p>Engelleri aş, enerji noktalarını birleştirip hedefe ulaş!</p>
+        <div class="card-footer">
+          <span>Rekor: <strong id="best-path">0</strong></span>
+          <button class="play-btn">Oyna</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- OYUN ALANI -->
+  <section id="game-screen" class="screen hidden">
+    <div class="game-hud">
+      <div class="hud-item">Puan: <span id="game-score">0</span></div>
+      <div class="hud-item" id="game-custom-hud">Seviye: <span id="game-level">1</span></div>
+    </div>
+
+    <div id="game-status-text">Hazırlanın...</div>
+
+    <!-- SKYRISE OYUNU -->
+    <div id="skyrise-view" class="game-container hidden">
+      <div class="skyrise-wrapper">
+        <div id="skyrise-board" class="board-grid"></div>
+        <div class="skyline-container" id="skyline-bg">
+          <div id="building-stack" class="building-stack"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPEED MATCH OYUNU -->
+    <div id="speed-view" class="game-container hidden">
+      <div class="speed-timer-bar"><div id="speed-progress"></div></div>
+      <div id="speed-card" class="speed-card">?</div>
+      <div class="speed-controls">
+        <button class="action-btn btn-wrong" onclick="handleSpeedAnswer(false)">✖ Farklı</button>
+        <button class="action-btn btn-correct" onclick="handleSpeedAnswer(true)">✔ Eşleşiyor</button>
+      </div>
+    </div>
+
+    <!-- PATH FINDER OYUNU -->
+    <div id="path-view" class="game-container hidden">
+      <div id="path-board" class="path-grid"></div>
+      <p class="path-instruction">Yeşil başlangıçtan Kırmızı bitişe dokunarak yol çizin!</p>
+    </div>
+  </section>
+
+  <!-- OYUN BİTTİ MODAL -->
+  <div id="game-over-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Oyun Bitti!</h2>
+      <p class="final-score">Skorunuz: <span id="final-score-val">0</span></p>
+      <p id="new-record-tag" class="record-tag hidden">🏆 Yeni Rekor!</p>
+      <div class="modal-buttons">
+        <button onclick="restartCurrentGame()">Tekrar Oyna</button>
+        <button onclick="showMainMenu()" class="btn-secondary">Ana Menü</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
